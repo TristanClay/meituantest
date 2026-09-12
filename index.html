@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="合拍是一款为年轻合租人设计的生活管家，让费用、值日、公共物品和室友公约都有清晰记录。"
+    />
+    <meta name="theme-color" content="#173f35" />
+    <title>合拍 · 合租生活管家</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23173f35'/%3E%3Cpath d='M15 31 32 16l17 15v19H37V38H27v12H15Z' fill='%23fff8ec'/%3E%3Ccircle cx='46' cy='18' r='7' fill='%23ff7a45'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="主要导航">
+        <a class="brand" href="#overview" aria-label="合拍首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 44 44" role="img">
+              <path d="M8 20.5 22 8l14 12.5v15.2H26.4v-9h-8.8v9H8Z" />
+              <circle cx="34.5" cy="10" r="4.5" />
+            </svg>
+          </span>
+          <span class="brand-copy"><strong>合拍</strong><small>HEPAI</small></span>
+        </a>
+
+        <nav class="side-nav">
+          <a class="nav-item is-active" href="#overview" data-nav="overview">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></svg>
+            </span>
+            <span>首页</span>
+          </a>
+          <a class="nav-item" href="#expenses" data-nav="expenses">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3v18M16.5 7.2c-.8-1-2.2-1.7-4.3-1.7-2.4 0-4.2 1.2-4.2 3.2 0 4.9 9 2.4 9 7.3 0 1.9-1.7 3-4.3 3-2.3 0-4-.8-5-2" /></svg>
+            </span>
+            <span>费用</span>
+          </a>
+          <a class="nav-item" href="#chores" data-nav="chores">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m4 13 4 4L20 5M4 6h7M4 11h4M4 21h16" /></svg>
+            </span>
+            <span>值日</span>
+          </a>
+          <a class="nav-item" href="#supplies" data-nav="supplies">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8Zm3 0V6a4 4 0 0 1 8 0v2" /></svg>
+            </span>
+            <span>物品</span>
+          </a>
+          <a class="nav-item" href="#pacts" data-nav="pacts">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3Zm8 0v4h4M9 11h6M9 15h6" /></svg>
+            </span>
+            <span>公约</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="home-mini-card">
+            <span class="home-mini-icon" aria-hidden="true">🏠</span>
+            <div><strong>梧桐里 502</strong><small>4 位室友在线</small></div>
+          </div>
+          <button class="icon-text-button" id="reset-data" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.6M4 4v4.6h4.6" /></svg>
+            重置演示
+          </button>
+        </div>
+      </aside>
+
+      <main id="main-content" class="main-content">
+        <section id="overview" class="page-header" aria-labelledby="welcome-title">
+          <div>
+            <p class="eyebrow"><span class="live-dot"></span><span id="current-date">9月12日 · 星期六</span></p>
+            <h1 id="welcome-title">晚上好，小林</h1>
+            <p class="header-subtitle">家里的事情都安排好了，只剩一件等你确认。</p>
+          </div>
+          <div class="header-actions">
+            <div class="avatar-stack" aria-label="4位室友">
+              <span class="avatar avatar-lin" title="小林（我）">林</span>
+              <span class="avatar avatar-zhe" title="阿哲">哲</span>
+              <span class="avatar avatar-si" title="思思">思</span>
+              <span class="avatar avatar-ning" title="嘉宁">宁</span>
+            </div>
+            <button class="primary-button" type="button" data-open-modal="expense-modal">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+              记一笔
+            </button>
+          </div>
+        </section>
+
+        <section class="summary-grid" aria-label="家庭状态摘要">
+          <article class="summary-card summary-money">
+            <div class="summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 6h14v12H5V6Zm0 4h14M15.5 14.3h.01" /></svg>
+            </div>
+            <div><span>待结算</span><strong id="summary-pending">¥326.50</strong><small id="summary-pending-note">3 笔账单未结清</small></div>
+            <a href="#expenses" aria-label="查看待结算费用">→</a>
+          </article>
+          <article class="summary-card summary-chore">
+            <div class="summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="m5 13 4 4L19 7" /></svg>
+            </div>
+            <div><span>今日值日</span><strong id="summary-chore">厨房 · 小林</strong><small id="summary-chore-note">今晚 21:00 前完成</small></div>
+            <a href="#chores" aria-label="查看今日值日">→</a>
+          </article>
+          <article class="summary-card summary-supply">
+            <div class="summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 8h14l-1 11H6L5 8Zm3 0V6a4 4 0 0 1 8 0v2" /></svg>
+            </div>
+            <div><span>低库存</span><strong id="summary-low-stock">2 件物品</strong><small>及时补货，不让生活断档</small></div>
+            <a href="#supplies" aria-label="查看低库存物品">→</a>
+          </article>
+          <article class="summary-card summary-pact">
+            <div class="summary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M6 3h9l3 3v15H6V3Zm8 0v4h4M9 12h6M9 16h4" /></svg>
+            </div>
+            <div><span>待确认公约</span><strong id="summary-pacts">1 条</strong><small>每个人确认，规则才生效</small></div>
+            <a href="#pacts" aria-label="查看待确认公约">→</a>
+          </article>
+        </section>
+
+        <section class="focus-strip" aria-label="今日提醒">
+          <div class="focus-copy">
+            <span class="focus-label">今日小提示</span>
+            <h2>把小事说清楚，合租就能更合拍。</h2>
+            <p id="focus-message">抽纸只剩最后 1 包，补货后可以直接计入本月公摊。</p>
+            <button class="soft-button" type="button" data-restock="tissue">去补货并记账</button>
+          </div>
+          <div class="focus-visual" id="home-visual" aria-hidden="true">
+            <div class="visual-placeholder">
+              <span>502</span>
+              <svg viewBox="0 0 160 110"><path d="M18 52 80 10l62 42v49H95V69H66v32H18Z" /><path d="M111 21v-9h17v21" /></svg>
+            </div>
+          </div>
+        </section>
+
+        <div class="dashboard-grid">
+          <section id="expenses" class="panel panel-expenses" aria-labelledby="expenses-title">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">费用 AA</span>
+                <h2 id="expenses-title">本月共同账本</h2>
+              </div>
+              <button class="secondary-button" type="button" data-open-modal="expense-modal">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                新增费用
+              </button>
+            </div>
+            <div class="expense-balance">
+              <div>
+                <span>本月公摊</span>
+                <strong id="month-total">¥1,026.50</strong>
+              </div>
+              <div>
+                <span>待结清</span>
+                <strong id="expense-pending-total">¥326.50</strong>
+              </div>
+              <div class="balance-people">
+                <span>本月参与</span>
+                <div class="mini-avatars" aria-hidden="true">
+                  <i class="avatar-lin">林</i><i class="avatar-zhe">哲</i><i class="avatar-si">思</i><i class="avatar-ning">宁</i>
+                </div>
+              </div>
+            </div>
+            <div id="expense-list" class="expense-list" aria-live="polite"></div>
+            <button id="show-all-expenses" class="panel-link" type="button">查看全部账单 <span>→</span></button>
+          </section>
+
+          <section id="chores" class="panel panel-chores" aria-labelledby="chores-title">
+            <div class="panel-heading compact">
+              <div>
+                <span class="section-kicker">清洁值日</span>
+                <h2 id="chores-title">今天轮到谁？</h2>
+              </div>
+              <span id="chore-status-badge" class="status-badge status-warning">待完成</span>
+            </div>
+            <div id="today-chore" class="today-chore"></div>
+            <div class="chore-actions">
+              <button id="complete-chore" class="primary-button full" type="button">完成今日值日</button>
+              <button id="swap-chore" class="secondary-button icon-only" type="button" aria-label="申请换班" title="申请换班">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 3-3 3 3M10 4v10a4 4 0 0 0 4 4h3M17 17l3 3-3 3" /></svg>
+              </button>
+            </div>
+            <div class="week-strip" id="week-strip" aria-label="本周值日安排"></div>
+          </section>
+
+          <section id="supplies" class="panel panel-supplies" aria-labelledby="supplies-title">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">公共物品</span>
+                <h2 id="supplies-title">家里还缺什么？</h2>
+              </div>
+              <button class="text-button" id="consume-tissue" type="button">记录消耗</button>
+            </div>
+            <div id="supply-list" class="supply-list" aria-live="polite"></div>
+          </section>
+
+          <section id="pacts" class="panel panel-pacts" aria-labelledby="pacts-title">
+            <div class="panel-heading">
+              <div>
+                <span class="section-kicker">室友公约</span>
+                <h2 id="pacts-title">把边界提前说好</h2>
+              </div>
+              <button class="secondary-button" type="button" data-open-modal="pact-modal">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                提议
+              </button>
+            </div>
+            <div id="pact-list" class="pact-list" aria-live="polite"></div>
+          </section>
+
+          <section class="panel panel-activity" aria-labelledby="activity-title">
+            <div class="panel-heading compact">
+              <div>
+                <span class="section-kicker">最近动态</span>
+                <h2 id="activity-title">家里刚刚发生</h2>
+              </div>
+              <span class="update-pill"><span></span>实时更新</span>
+            </div>
+            <ol id="activity-list" class="activity-list" aria-live="polite"></ol>
+          </section>
+        </div>
+
+        <footer class="page-footer">
+          <span>合拍 · 让合租小事有迹可循</span>
+          <span>数据仅保存在当前浏览器</span>
+        </footer>
+      </main>
+
+      <nav class="mobile-nav" aria-label="移动端导航">
+        <a href="#overview" class="is-active"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4v9Zm0 7h6v-4H4v4Zm10 0h6v-9h-6v9Zm0-16v4h6V4h-6Z" /></svg><span>首页</span></a>
+        <a href="#expenses"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M16.5 7.2c-.8-1-2.2-1.7-4.3-1.7-2.4 0-4.2 1.2-4.2 3.2 0 4.9 9 2.4 9 7.3 0 1.9-1.7 3-4.3 3-2.3 0-4-.8-5-2" /></svg><span>费用</span></a>
+        <a href="#chores"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 13 4 4L20 5M4 21h16" /></svg><span>值日</span></a>
+        <a href="#supplies"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Zm3 0V6a4 4 0 0 1 8 0v2" /></svg><span>物品</span></a>
+        <a href="#pacts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6V3Zm8 0v4h4" /></svg><span>公约</span></a>
+      </nav>
+    </div>
+
+    <div class="modal" id="expense-modal" role="dialog" aria-modal="true" aria-labelledby="expense-modal-title" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="关闭">×</button>
+        <span class="modal-icon money-icon" aria-hidden="true">¥</span>
+        <h2 id="expense-modal-title">记一笔共同费用</h2>
+        <p>填写一次，系统会自动算清每个人该承担多少。</p>
+        <form id="expense-form">
+          <label>费用名称<input id="expense-name" name="name" type="text" placeholder="例如：9月电费" required maxlength="30" /></label>
+          <div class="form-row">
+            <label>金额（元）<input id="expense-amount" name="amount" type="number" placeholder="0.00" min="0.01" step="0.01" required /></label>
+            <label>付款人<select id="expense-payer" name="payer"><option value="lin">小林（我）</option><option value="zhe">阿哲</option><option value="si">思思</option><option value="ning">嘉宁</option></select></label>
+          </div>
+          <fieldset class="split-fieldset">
+            <legend>参与分摊</legend>
+            <div class="person-checks">
+              <label><input type="checkbox" name="participants" value="lin" checked /><span class="avatar avatar-lin">林</span><em>小林</em></label>
+              <label><input type="checkbox" name="participants" value="zhe" checked /><span class="avatar avatar-zhe">哲</span><em>阿哲</em></label>
+              <label><input type="checkbox" name="participants" value="si" checked /><span class="avatar avatar-si">思</span><em>思思</em></label>
+              <label><input type="checkbox" name="participants" value="ning" checked /><span class="avatar avatar-ning">宁</span><em>嘉宁</em></label>
+            </div>
+          </fieldset>
+          <div class="split-preview" id="expense-split-preview">选择参与人并输入金额后，将在这里显示分摊结果</div>
+          <button class="primary-button full modal-submit" type="submit">确认并加入账本</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="restock-modal" role="dialog" aria-modal="true" aria-labelledby="restock-modal-title" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="关闭">×</button>
+        <span class="modal-icon supply-modal-icon" aria-hidden="true">🧻</span>
+        <h2 id="restock-modal-title">补货并记账</h2>
+        <p id="restock-description">补充抽纸后，会自动生成一笔 4 人 AA 的公共支出。</p>
+        <form id="restock-form">
+          <input type="hidden" id="restock-item-id" value="tissue" />
+          <label>本次花费（元）<input id="restock-amount" type="number" value="48" min="0.01" step="0.01" required /></label>
+          <label>补货数量<input id="restock-quantity" type="number" value="8" min="1" step="1" required /></label>
+          <div class="split-result-card"><span>4 人平均分摊</span><strong id="restock-split">每人 ¥12.00</strong></div>
+          <button class="primary-button full modal-submit" type="submit">补货并加入共同账本</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="pact-modal" role="dialog" aria-modal="true" aria-labelledby="pact-modal-title" hidden>
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-card">
+        <button class="modal-close" type="button" data-close-modal aria-label="关闭">×</button>
+        <span class="modal-icon pact-modal-icon" aria-hidden="true">✓</span>
+        <h2 id="pact-modal-title">提议一条新公约</h2>
+        <p>说清楚具体行为，比“大家注意一下”更容易达成共识。</p>
+        <form id="pact-form">
+          <label>公约内容<textarea id="pact-content" rows="3" maxlength="60" placeholder="例如：公共用品用完后及时登记" required></textarea></label>
+          <button class="primary-button full modal-submit" type="submit">提交给室友确认</button>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast-region" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
